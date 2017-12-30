@@ -1,0 +1,9 @@
+attrs
+coverage
+mock
+pytest-flakes
+pytest-cov
+pytest-twisted
+tox
+twine
+twisted
