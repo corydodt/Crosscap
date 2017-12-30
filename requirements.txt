@@ -1,9 +1,14 @@
 attrs
+click
 coverage
+ftfy==4.4.3
+klein
 mock
 pytest-flakes
 pytest-cov
 pytest-twisted
+pyyaml
 tox
 twine
 twisted
+werkzeug

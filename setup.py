@@ -17,6 +17,14 @@ setup(
     classifiers = [],
     scripts = [],
     install_requires=cleandoc('''
-        attrs
+        click>=6.7
+        ftfy==4.4.3
+        pytest>=3.1.0
+        pytest-cov>=2.5.1
+        pytest-flakes>=2.0.0
+        pytest-twisted>=1.5
+        pyyaml>=3.12,<4.0
+        twisted>=17.1.0
+        werkzeug>=0.13
         ''').split()
 )

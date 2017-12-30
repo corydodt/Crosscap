@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+
+from crosscap.urltool import urltool
+
+urltool()
