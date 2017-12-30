@@ -17,5 +17,10 @@ $ twine upload dist/*
 
 ## Change Log
 
-* 0.0.1:
-  - Initial pre-alpha
+### [0.1.0] - 2017.12.29
+
+#### Added:
+  - Initial release
+
+
+[0.1.0]: https://github.com/corydodt/Crosscap/tree/release-0.1.0
