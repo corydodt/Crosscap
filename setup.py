@@ -15,7 +15,7 @@ setup(
     url = 'https://github.com/corydodt/Crosscap',
     keywords = [],
     classifiers = [],
-    scripts = [],
+    scripts = ['bin/urltool'],
     install_requires=cleandoc('''
         click>=6.7
         ftfy==4.4.3
