@@ -17,11 +17,16 @@ $ twine upload dist/*
 
 ## Change Log
 
+### [0.2.2] - 2018.04.17
+
+#### Added:
+  - `crosscap.testing.request()` sets a default response code of 200
+
+
 ### [0.2.1] - 2017.12.30
 
 #### Fixed:
   - `urltool` is now distributed as a script
-
 
 
 ### [0.2.0] - 2017.12.30
@@ -36,6 +41,7 @@ $ twine upload dist/*
   - Initial release
 
 
+[0.2.2]: https://github.com/corydodt/Crosscap/compare/release-0.2.1...release-0.2.2
 [0.2.1]: https://github.com/corydodt/Crosscap/compare/release-0.2.0...release-0.2.1
 [0.2.0]: https://github.com/corydodt/Crosscap/compare/release-0.1.0...release-0.2.0
 [0.1.0]: https://github.com/corydodt/Crosscap/tree/release-0.1.0

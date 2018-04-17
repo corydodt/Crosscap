@@ -45,3 +45,4 @@ def test_request(srv):
     rh = {'Accept-Language': 'klingon'}
     req = testing.request([], responseHeaders=rh.items())
     assert req.responseHeaders == Headers({'accept-language': ['klingon']})
+    assert req.code == 200

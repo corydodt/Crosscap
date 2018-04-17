@@ -2,7 +2,7 @@
 Tools for testing applications that use crosscap
 """
 from twisted.internet import defer
-from twisted.web.test.requesthelper import DummyRequest
+from twisted.web.test.requesthelper import DummyRequest as _DummyRequest
 
 import attr
 
@@ -13,11 +13,21 @@ DEFAULT_HEADERS = (
     )
 
 
+class DummyRequest(_DummyRequest):
+    """
+    Patch a weird bug in twisted's _DummyRequest - it doesn't set .code, it sets .responseCode
+    """
+    def setResponseCode(self, code, message=None):
+        _DummyRequest.setResponseCode(self, code, message)
+        self.code = code
+
+
 def request(postpath, requestHeaders=DEFAULT_HEADERS, responseHeaders=(), **kwargs):
     """
     Build a fake request for tests
     """
     req = DummyRequest(postpath)
+    req.setResponseCode(200)
     for hdr, val in requestHeaders:
         req.requestHeaders.setRawHeaders(hdr, val)
 
