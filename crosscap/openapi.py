@@ -5,6 +5,8 @@ Includes yaml representation helpers
 """
 from collections import OrderedDict
 
+from builtins import object
+
 import attr
 
 

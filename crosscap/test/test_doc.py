@@ -2,6 +2,8 @@
 """
 Tests of the doc class
 """
+from builtins import object
+
 from crosscap import doc
 
 

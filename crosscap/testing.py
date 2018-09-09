@@ -1,6 +1,8 @@
 """
 Tools for testing applications that use crosscap
 """
+from builtins import object
+
 from twisted.internet import defer
 from twisted.web.test.requesthelper import DummyRequest as _DummyRequest
 

@@ -1,6 +1,8 @@
 """
 Tests of the testing-helpers. :-/
 """
+from builtins import object
+
 from twisted.web.http_headers import Headers
 
 from klein import Klein

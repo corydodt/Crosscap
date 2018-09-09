@@ -4,6 +4,8 @@ Extracting documentation from python objects
 import inspect
 import re
 
+from builtins import object
+
 import attr
 
 import ftfy
