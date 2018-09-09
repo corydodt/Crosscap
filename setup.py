@@ -3,7 +3,7 @@ from inspect import cleandoc
 from setuptools import setup
 
 _version = {}
-execfile('crosscap/_version.py', _version)
+exec(open('crosscap/_version.py').read(), _version)
 
 setup(
     name = 'Crosscap',

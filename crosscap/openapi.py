@@ -97,7 +97,7 @@ class OpenAPIPathItem(object):
 
         Raises an exception if an operation object being merged is already in this path item.
         """
-        assert key not in self._operations.keys(), "Non-unique operation %r in %r" % (key, self)
+        assert key not in list(self._operations.keys()), "Non-unique operation %r in %r" % (key, self)
         self._operations[key] = operation
 
 
@@ -160,7 +160,7 @@ def representCleanOpenAPIOperation(dumper, data):
     """
     dct = _orderedCleanDict(data)
     if '_extended' in dct:
-        for k, ext in data._extended.items():
+        for k, ext in list(data._extended.items()):
             dct[k] = ext
         del dct['_extended']
 
