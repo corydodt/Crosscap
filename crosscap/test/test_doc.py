@@ -49,7 +49,7 @@ def test_documentation():
     assert doc.doc(Cls) == "I have a bytestr docstring"
 
     assert doc.Documentation.fromObject(Cls).full == "I have a bytestr docstring\n\nIt is 2 lines"
-    assert isinstance(doc.Documentation.fromObject(Unicls).first, unicode)
+    assert type(doc.Documentation.fromObject(Unicls).first) is type(u'')
     strDoc = doc.Documentation.fromObject(StrClsWithUTF8, decode=True)
     assert strDoc.first == u'I have a 😼💫 docstring'
     assert isinstance(strDoc.first, unicode)
