@@ -52,4 +52,4 @@ def test_documentation():
     assert type(doc.Documentation.fromObject(Unicls).first) is type(u'')
     strDoc = doc.Documentation.fromObject(StrClsWithUTF8, decode=True)
     assert strDoc.first == u'I have a 😼💫 docstring'
-    assert isinstance(strDoc.first, unicode)
+    assert type(strDoc.first) is type(u'')
