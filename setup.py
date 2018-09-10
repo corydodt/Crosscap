@@ -9,12 +9,16 @@ setup(
     name = 'Crosscap',
     packages = ['crosscap',],
     version = _version['__version__'],
-    description = 'idk fix later',
+    description = 'Suite of tools for enhancing the Klein web framework',
     author = 'Cory Dodt',
     author_email = 'corydodt@gmail.com',
     url = 'https://github.com/corydodt/Crosscap',
     keywords = [],
-    classifiers = [],
+    classifiers = [
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License"
+    ],
     scripts = ['bin/urltool'],
     install_requires=cleandoc('''
         click>=6.7
