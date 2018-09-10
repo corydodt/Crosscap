@@ -1,6 +1,8 @@
 """
 Tools for testing applications that use crosscap
 """
+from builtins import object
+
 from twisted.internet import defer
 from twisted.web.test.requesthelper import DummyRequest as _DummyRequest
 
@@ -34,7 +36,7 @@ def request(postpath, requestHeaders=DEFAULT_HEADERS, responseHeaders=(), **kwar
     for hdr, val in responseHeaders:
         req.setHeader(hdr, val)
 
-    for k, v in kwargs.items():
+    for k, v in list(kwargs.items()):
         if k.startswith('session_'):
             ses = req.getSession()
             setattr(ses, k[8:], v)

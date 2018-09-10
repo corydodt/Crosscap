@@ -1,6 +1,8 @@
 """
 Common pytest workhorse code and fixtures
 """
+from builtins import object
+
 from klein import Klein
 
 from crosscap import openAPIDoc, enter
