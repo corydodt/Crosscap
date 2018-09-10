@@ -1,6 +1,7 @@
 """
 Tests of the openapi schema in kleinish
 """
+from collections import OrderedDict
 from inspect import cleandoc
 
 import yaml
@@ -12,7 +13,7 @@ def test_orderedDict():
     """
     Do I keep the order of dicts?
     """
-    dct = openapi.UnsortableOrderedDict()
+    dct = OrderedDict()
     dct['a'] = 1
     dct['z'] = 2
     dct['b'] = 3

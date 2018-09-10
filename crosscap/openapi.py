@@ -10,24 +10,6 @@ from builtins import object
 import attr
 
 
-class _UnsortableList(list):
-    """
-    List that no-ops sort(), so yaml will get unsorted items
-    """
-    def sort(self, *args, **kwargs):
-        """
-        Do not sort
-        """
-
-
-class UnsortableOrderedDict(OrderedDict):
-    """
-    Glue class to allow yaml to dump an OrderedDict
-    """
-    def items(self, *args, **kwargs):
-        return _UnsortableList(OrderedDict.items(self, *args, **kwargs))
-
-
 @attr.s
 class OpenAPIMediaType(object):
     """
@@ -41,9 +23,9 @@ class OpenAPIResponse(object):
     A response (HTTP body) returned by an operation
     """
     description = attr.ib()
-    headers = attr.ib(default=attr.Factory(UnsortableOrderedDict))
-    content = attr.ib(default=attr.Factory(UnsortableOrderedDict))
-    links = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    headers = attr.ib(default=attr.Factory(OrderedDict))
+    content = attr.ib(default=attr.Factory(OrderedDict))
+    links = attr.ib(default=attr.Factory(OrderedDict))
 
 
 @attr.s
@@ -52,7 +34,7 @@ class OpenAPIResponses(object):
     Mapping of responses (available HTTP body return values)
     """
     default = attr.ib(default=attr.Factory(lambda: OpenAPIResponse(None)))
-    codeMap = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    codeMap = attr.ib(default=attr.Factory(OrderedDict))
 
 
 @attr.s
@@ -65,14 +47,14 @@ class OpenAPIOperation(object):
     description = attr.ib(default="undocumented")
     externalDocs = attr.ib(default=None)
     operationId = attr.ib(default=None)
-    responses = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    responses = attr.ib(default=attr.Factory(OrderedDict))
     parameters = attr.ib(default=attr.Factory(list))
-    requestBody = attr.ib(default=attr.Factory(UnsortableOrderedDict))
-    callbacks = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    requestBody = attr.ib(default=attr.Factory(OrderedDict))
+    callbacks = attr.ib(default=attr.Factory(OrderedDict))
     deprecated = attr.ib(default=False)
     security = attr.ib(default=None)
     servers = attr.ib(default=attr.Factory(list))
-    _extended = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    _extended = attr.ib(default=attr.Factory(OrderedDict))
 
 
 @attr.s
@@ -84,7 +66,7 @@ class OpenAPIPathItem(object):
     description = attr.ib(default="")
     servers = attr.ib(default=attr.Factory(list))
     parameters = attr.ib(default=attr.Factory(list))
-    _operations = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    _operations = attr.ib(default=attr.Factory(OrderedDict))
 
     def merge(self, other):
         """
@@ -136,7 +118,7 @@ class OpenAPI(object):
     """
     openapi = attr.ib(default="3.0.0")
     info = attr.ib(default=attr.Factory(OpenAPIInfo))
-    paths = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    paths = attr.ib(default=attr.Factory(OrderedDict))
 
 
 def _orderedCleanDict(attrsObj):
@@ -151,7 +133,7 @@ def _orderedCleanDict(attrsObj):
         return not not v
 
     return attr.asdict(attrsObj,
-        dict_factory=UnsortableOrderedDict,
+        dict_factory=OrderedDict,
         recurse=False,
         filter=_filt)
 
