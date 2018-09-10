@@ -148,7 +148,7 @@ def representCleanOpenAPIOperation(dumper, data):
             dct[k] = ext
         del dct['_extended']
 
-    return dumper.represent_dict(dct)
+    return dumper.yaml_representers[type(dct)](dumper, dct)
 
 
 def representCleanOpenAPIPathItem(dumper, data):
@@ -162,7 +162,7 @@ def representCleanOpenAPIPathItem(dumper, data):
             dct[k] = op
         del dct['_operations']
 
-    return dumper.represent_dict(dct)
+    return dumper.yaml_representers[type(dct)](dumper, dct)
 
 
 def representCleanOpenAPIParameter(dumper, data):
@@ -170,11 +170,18 @@ def representCleanOpenAPIParameter(dumper, data):
     Rename python reserved keyword fields before representing an OpenAPIParameter
     """
     dct = _orderedCleanDict(data)
-    if 'in_' in dct:
-        dct['in'] = dct['in_']
-        del dct['in_']
+    # We are using "in_" as a key for the "in" parameter, since in is a Python keyword.
+    # To represent it correctly, we then have to swap "in_" for "in".
+    # So we do an item-by-item copy of the dct so we don't change the order when
+    # making this swap.
+    d2 = OrderedDict()
+    for k, v in dct.copy().items():
+        if k == 'in_':
+            d2['in'] = v
+        else:
+            d2[k] = v
 
-    return dumper.represent_dict(dct)
+    return dumper.yaml_representers[type(d2)](dumper, d2)
 
 
 def representCleanOpenAPIObjects(dumper, data):
@@ -183,7 +190,7 @@ def representCleanOpenAPIObjects(dumper, data):
     """
     dct = _orderedCleanDict(data)
 
-    return dumper.represent_dict(dct)
+    return dumper.yaml_representers[type(dct)](dumper, dct)
 
 
 def mediaTypeHelper(mediaType):

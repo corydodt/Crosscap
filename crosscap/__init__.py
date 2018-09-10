@@ -1,7 +1,6 @@
 """
 Crosscap, the Klein helper
 """
-from collections import OrderedDict
 import sys
 
 import yaml
@@ -9,10 +8,10 @@ import yaml
 from crosscap import urltool, openapi
 from crosscap.tree import openAPIDoc, enter
 from crosscap._version import __version__
-from crosscap.yamlhack import represent_ordered_dict
+from crosscap import yamlhack # for side effects
 
 
-(urltool, openapi, openAPIDoc, enter, __version__) # for pyflakes
+(yamlhack, urltool, openapi, openAPIDoc, enter, __version__) # for pyflakes
 
 
 yaml.add_representer(openapi.OpenAPIParameter, openapi.representCleanOpenAPIParameter)
@@ -23,7 +22,6 @@ yaml.add_representer(openapi.OpenAPIPathItem, openapi.representCleanOpenAPIPathI
 yaml.add_representer(openapi.OpenAPIOperation, openapi.representCleanOpenAPIOperation)
 yaml.add_representer(openapi.OpenAPI, openapi.representCleanOpenAPIObjects)
 yaml.add_representer(openapi.OpenAPIInfo, openapi.representCleanOpenAPIObjects)
-yaml.add_representer(OrderedDict, represent_ordered_dict)
 
 if sys.version_info.major == 3: # pragma: nocover
     yaml.add_representer(str, urltool.literal_unicode_representer)
