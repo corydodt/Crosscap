@@ -65,8 +65,8 @@ def test_filter(runner):
                 It takes a query arg and returns it
               operationId: SubApp.hasQueryArg
               parameters:
-              - in: query
-                name: color
+              - name: color
+                in: query
                 required: true
     """)
 
@@ -167,8 +167,8 @@ def test_postOptions(runner):
                 It takes a query arg and returns it
               operationId: SubApp.hasQueryArg
               parameters:
-              - in: query
-                name: color
+              - name: color
+                in: query
                 required: true
 
         """)

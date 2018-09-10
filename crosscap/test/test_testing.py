@@ -1,6 +1,8 @@
 """
 Tests of the testing-helpers. :-/
 """
+from builtins import object
+
 from twisted.web.http_headers import Headers
 
 from klein import Klein
@@ -43,6 +45,6 @@ def test_request(srv):
     req = testing.request([], session_attr=True)
     assert req.session.attr
     rh = {'Accept-Language': 'klingon'}
-    req = testing.request([], responseHeaders=rh.items())
+    req = testing.request([], responseHeaders=list(rh.items()))
     assert req.responseHeaders == Headers({'accept-language': ['klingon']})
     assert req.code == 200

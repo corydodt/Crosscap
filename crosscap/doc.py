@@ -4,6 +4,8 @@ Extracting documentation from python objects
 import inspect
 import re
 
+from builtins import object
+
 import attr
 
 import ftfy
@@ -37,6 +39,7 @@ class Documentation(object):
         Construct a `Documentation` from any object with a docstring
 
         With `decode=True`, decode docstrings as utf-8, then run them through ftfy, and return unicode.
+        This is for compatibility with Python 2, where docstrings are usually byte strings.
         """
         if obj.__doc__ is None:
             return cls(u'' if decode else '')
@@ -46,10 +49,10 @@ class Documentation(object):
     @classmethod
     def fromString(cls, s, decode=None):
         out = inspect.cleandoc(s)
-        if not decode or isinstance(out, unicode):
-            return cls(out)
-        else:
+        if decode and isinstance(out, bytes): # pragma: nocover (doesn't run in python 3)
             return cls(ftfy.fix_encoding(out.decode('utf-8')))
+        else:
+            return cls(out)
 
 
 def doc(obj):

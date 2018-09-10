@@ -3,7 +3,7 @@ from inspect import cleandoc
 from setuptools import setup
 
 _version = {}
-execfile('crosscap/_version.py', _version)
+exec(open('crosscap/_version.py').read(), _version)
 
 setup(
     name = 'Crosscap',
@@ -19,6 +19,7 @@ setup(
     install_requires=cleandoc('''
         click>=6.7
         ftfy==4.4.3
+        future>=0.16.0
         pytest>=3.1.0
         pytest-cov>=2.5.1
         pytest-flakes>=2.0.0

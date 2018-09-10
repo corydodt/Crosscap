@@ -3,7 +3,11 @@ URLtool - tool for documenting http API and building API clients
 
 This assumes using crosscap.tree.enter() decorator
 """
+from __future__ import print_function
+
 import re
+
+from builtins import object
 
 import click
 
@@ -68,7 +72,7 @@ def urltool(classqname, filt, reverse):
             openapi3.paths[pathPath].merge(pathItem)
         else:
             openapi3.paths[pathPath] = pathItem
-    print yaml.dump(openapi3, default_flow_style=False)
+    print(yaml.dump(openapi3, default_flow_style=False))
 
 
 @attr.s

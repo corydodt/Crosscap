@@ -5,25 +5,9 @@ Includes yaml representation helpers
 """
 from collections import OrderedDict
 
+from builtins import object
+
 import attr
-
-
-class _UnsortableList(list):
-    """
-    List that no-ops sort(), so yaml will get unsorted items
-    """
-    def sort(self, *args, **kwargs):
-        """
-        Do not sort
-        """
-
-
-class UnsortableOrderedDict(OrderedDict):
-    """
-    Glue class to allow yaml to dump an OrderedDict
-    """
-    def items(self, *args, **kwargs):
-        return _UnsortableList(OrderedDict.items(self, *args, **kwargs))
 
 
 @attr.s
@@ -39,9 +23,9 @@ class OpenAPIResponse(object):
     A response (HTTP body) returned by an operation
     """
     description = attr.ib()
-    headers = attr.ib(default=attr.Factory(UnsortableOrderedDict))
-    content = attr.ib(default=attr.Factory(UnsortableOrderedDict))
-    links = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    headers = attr.ib(default=attr.Factory(OrderedDict))
+    content = attr.ib(default=attr.Factory(OrderedDict))
+    links = attr.ib(default=attr.Factory(OrderedDict))
 
 
 @attr.s
@@ -50,7 +34,7 @@ class OpenAPIResponses(object):
     Mapping of responses (available HTTP body return values)
     """
     default = attr.ib(default=attr.Factory(lambda: OpenAPIResponse(None)))
-    codeMap = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    codeMap = attr.ib(default=attr.Factory(OrderedDict))
 
 
 @attr.s
@@ -63,14 +47,14 @@ class OpenAPIOperation(object):
     description = attr.ib(default="undocumented")
     externalDocs = attr.ib(default=None)
     operationId = attr.ib(default=None)
-    responses = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    responses = attr.ib(default=attr.Factory(OrderedDict))
     parameters = attr.ib(default=attr.Factory(list))
-    requestBody = attr.ib(default=attr.Factory(UnsortableOrderedDict))
-    callbacks = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    requestBody = attr.ib(default=attr.Factory(OrderedDict))
+    callbacks = attr.ib(default=attr.Factory(OrderedDict))
     deprecated = attr.ib(default=False)
     security = attr.ib(default=None)
     servers = attr.ib(default=attr.Factory(list))
-    _extended = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    _extended = attr.ib(default=attr.Factory(OrderedDict))
 
 
 @attr.s
@@ -82,7 +66,7 @@ class OpenAPIPathItem(object):
     description = attr.ib(default="")
     servers = attr.ib(default=attr.Factory(list))
     parameters = attr.ib(default=attr.Factory(list))
-    _operations = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    _operations = attr.ib(default=attr.Factory(OrderedDict))
 
     def merge(self, other):
         """
@@ -97,7 +81,7 @@ class OpenAPIPathItem(object):
 
         Raises an exception if an operation object being merged is already in this path item.
         """
-        assert key not in self._operations.keys(), "Non-unique operation %r in %r" % (key, self)
+        assert key not in list(self._operations.keys()), "Non-unique operation %r in %r" % (key, self)
         self._operations[key] = operation
 
 
@@ -134,7 +118,7 @@ class OpenAPI(object):
     """
     openapi = attr.ib(default="3.0.0")
     info = attr.ib(default=attr.Factory(OpenAPIInfo))
-    paths = attr.ib(default=attr.Factory(UnsortableOrderedDict))
+    paths = attr.ib(default=attr.Factory(OrderedDict))
 
 
 def _orderedCleanDict(attrsObj):
@@ -149,7 +133,7 @@ def _orderedCleanDict(attrsObj):
         return not not v
 
     return attr.asdict(attrsObj,
-        dict_factory=UnsortableOrderedDict,
+        dict_factory=OrderedDict,
         recurse=False,
         filter=_filt)
 
@@ -160,11 +144,11 @@ def representCleanOpenAPIOperation(dumper, data):
     """
     dct = _orderedCleanDict(data)
     if '_extended' in dct:
-        for k, ext in data._extended.items():
+        for k, ext in list(data._extended.items()):
             dct[k] = ext
         del dct['_extended']
 
-    return dumper.represent_dict(dct)
+    return dumper.yaml_representers[type(dct)](dumper, dct)
 
 
 def representCleanOpenAPIPathItem(dumper, data):
@@ -178,7 +162,7 @@ def representCleanOpenAPIPathItem(dumper, data):
             dct[k] = op
         del dct['_operations']
 
-    return dumper.represent_dict(dct)
+    return dumper.yaml_representers[type(dct)](dumper, dct)
 
 
 def representCleanOpenAPIParameter(dumper, data):
@@ -186,11 +170,18 @@ def representCleanOpenAPIParameter(dumper, data):
     Rename python reserved keyword fields before representing an OpenAPIParameter
     """
     dct = _orderedCleanDict(data)
-    if 'in_' in dct:
-        dct['in'] = dct['in_']
-        del dct['in_']
+    # We are using "in_" as a key for the "in" parameter, since in is a Python keyword.
+    # To represent it correctly, we then have to swap "in_" for "in".
+    # So we do an item-by-item copy of the dct so we don't change the order when
+    # making this swap.
+    d2 = OrderedDict()
+    for k, v in dct.copy().items():
+        if k == 'in_':
+            d2['in'] = v
+        else:
+            d2[k] = v
 
-    return dumper.represent_dict(dct)
+    return dumper.yaml_representers[type(d2)](dumper, d2)
 
 
 def representCleanOpenAPIObjects(dumper, data):
@@ -199,7 +190,7 @@ def representCleanOpenAPIObjects(dumper, data):
     """
     dct = _orderedCleanDict(data)
 
-    return dumper.represent_dict(dct)
+    return dumper.yaml_representers[type(dct)](dumper, dct)
 
 
 def mediaTypeHelper(mediaType):
