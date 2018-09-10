@@ -26,7 +26,7 @@ yaml.add_representer(openapi.UnsortableOrderedDict, yaml.representer.SafeReprese
 if sys.version_info.major == 3: # pragma: nocover
     yaml.add_representer(str, urltool.literal_unicode_representer)
 else: # pragma: nocover
-    yaml.add_representer(unicode, urltool.literal_unicode_representer)
+    yaml.add_representer(type(u''), urltool.literal_unicode_representer)
 
 yaml.add_representer(bytes, urltool.literal_unicode_representer)
 
