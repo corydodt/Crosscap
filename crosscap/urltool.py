@@ -94,7 +94,7 @@ class ConvertedRule(object):
         @returns tuple of (path, pathItem)
         """
         pathItem = openapi.OpenAPIPathItem()
-        methods = self.methods[:] or ['x-any-method']
+        methods = self.methods[:] or ['get']
         for meth in methods:
             if meth.lower() in ['head']:
                 continue

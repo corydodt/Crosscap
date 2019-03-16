@@ -99,6 +99,14 @@ class OpenAPIInfo(object):
 
 
 @attr.s
+class OpenAPISchema(object):
+    """
+    The .schema of an OpenAPIParameter
+    """
+    type = attr.ib(default="string")
+
+
+@attr.s
 class OpenAPIParameter(object):
     """
     The .parameters attribute of an operation
@@ -109,6 +117,7 @@ class OpenAPIParameter(object):
     required = attr.ib(default=False)
     deprecated = attr.ib(default=False)
     allowEmptyValue = attr.ib(default=False)
+    schema = attr.ib(default=attr.Factory(OpenAPISchema))
 
 
 @attr.s

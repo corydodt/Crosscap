@@ -14,6 +14,7 @@ from crosscap import yamlhack # for side effects
 (yamlhack, urltool, openapi, openAPIDoc, enter, __version__) # for pyflakes
 
 
+yaml.add_representer(openapi.OpenAPISchema, openapi.representCleanOpenAPIObjects)
 yaml.add_representer(openapi.OpenAPIParameter, openapi.representCleanOpenAPIParameter)
 yaml.add_representer(openapi.OpenAPIResponse, openapi.representCleanOpenAPIObjects)
 yaml.add_representer(openapi.OpenAPIResponses, openapi.representCleanOpenAPIObjects)
