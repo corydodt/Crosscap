@@ -61,6 +61,7 @@ def openAPIDoc(**kwargs):
         # The only reason we need to do this is so we can be certain
         # that __doc__ will be modifiable. partial() objects have
         # a modifiable __doc__, but native function objects do not.
+        # FIXME: this probably works much better with wrapt
         ret = functools.wraps(routeHandler)(routeHandler)
         if not ret.__doc__:
             ret.__doc__ = ''
