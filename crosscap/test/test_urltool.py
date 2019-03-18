@@ -68,6 +68,8 @@ def test_filter(runner):
               - name: color
                 in: query
                 required: true
+                schema:
+                  type: string
     """)
 
     res = runner.invoke(urltool.urltool, ['crosscap.test.conftest.TopApp', 'hasqueryarg', '--reverse'])
@@ -170,6 +172,8 @@ def test_postOptions(runner):
               - name: color
                 in: query
                 required: true
+                schema:
+                  type: string
 
         """)
 

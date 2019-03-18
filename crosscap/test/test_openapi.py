@@ -1,5 +1,5 @@
 """
-Tests of the openapi schema in kleinish
+Tests of the openapi schema
 """
 from collections import OrderedDict
 from inspect import cleandoc
