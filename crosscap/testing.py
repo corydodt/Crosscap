@@ -10,8 +10,8 @@ import attr
 
 
 DEFAULT_HEADERS = (
-    ('user-agent', ['Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0)']),
-    ('cookie', ['']),
+    ('user-agent', [b'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_0)']),
+    ('cookie', [b'']),
     )
 
 
