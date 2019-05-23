@@ -24,6 +24,7 @@ setup(
         click>=6.7
         ftfy==4.4.3
         future>=0.16.0
+        pyjwt>=1.7.1
         pytest>=3.1.0
         pytest-cov>=2.5.1
         pytest-flakes>=2.0.0
@@ -31,5 +32,6 @@ setup(
         pyyaml>=3.12,<4.0
         twisted>=17.1.0
         werkzeug>=0.13
+        wrapt>=1.11.1
         ''').split()
 )
