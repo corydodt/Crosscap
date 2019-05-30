@@ -42,7 +42,7 @@ def test_dumpRule():
 
 @fixture
 def runner():
-  return CliRunner()
+    return CliRunner()
 
 
 def test_filter(runner):
