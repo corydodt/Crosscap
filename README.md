@@ -10,12 +10,24 @@ $ tox
 
 ##  Build/upload
 
+- Update crosscap/_version.py
+- Update the Change Log below
+- Add and push a tag for the new release
+
 ```
 $ python setup.py sdist bdist_wheel
 $ twine upload dist/*
 ```
 
 ## Change Log
+
+### [0.4.0] - 2019.05.30
+
+### Added:
+  - `crosscap.permitting`, an API for adding authorization to your request handlers (see doc/example/permitting)
+
+### Added:
+  - Crosscap now fully supports Python 3.6+ (#3)
 
 ### [0.3.0] - 2018.09.10
 
@@ -46,6 +58,7 @@ $ twine upload dist/*
   - Initial release
 
 
+[0.4.0]: https://github.com/corydodt/Crosscap/compare/release-0.3.0...release-0.4.0
 [0.3.0]: https://github.com/corydodt/Crosscap/compare/release-0.2.2...release-0.3.0
 [0.2.2]: https://github.com/corydodt/Crosscap/compare/release-0.2.1...release-0.2.2
 [0.2.1]: https://github.com/corydodt/Crosscap/compare/release-0.2.0...release-0.2.1
