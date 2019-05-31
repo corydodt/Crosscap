@@ -26,9 +26,6 @@ $ twine upload dist/*
 ### Added:
   - `crosscap.permitting`, an API for adding authorization to your request handlers (see doc/example/permitting)
 
-### Added:
-  - Crosscap now fully supports Python 3.6+ (#3)
-
 ### [0.3.0] - 2018.09.10
 
 ### Added:
