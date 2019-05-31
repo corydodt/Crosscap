@@ -66,7 +66,7 @@ In `tornadoauth.py`,
 
 ## Klein
 
-In `klein.py`,
+In `kleinauth.py`,
 
 1. The service routes are implemented as Klein `@route`s. The `permits()` decorator goes on each route.
 
@@ -87,13 +87,14 @@ One thing not covered in these examples (or, indeed, by `permitting` itself) is
 password storage/checking, so no aspect of user login is covered.
 
 Permitting is for token-based auth when a user *already has a token*. There
-are many ways the user can get this token:
+are many ways the user or service client can get this token:
 
 - Username+password login. In an interactive web app (or an app that supports
  basic auth at the service level), a user can login with a password, and, in
  the response, get a JWT to use for future requests. A single-page web app
  might use this method, providing the token in each future request through
- javascript.
+ javascript. (You can also add MFA here if you like, the approach is the same
+ from `permitting`'s point of view.)
  
    Browser-based interactive apps could also respond with a `Set-Cookie` header
  and, in following requests, read the token from the cookie instead of the
@@ -101,16 +102,16 @@ are many ways the user can get this token:
  token by implementing a property for `ICurrentUser.token`.
 
 - BYOT (bring your own token). In this scenario, a (probably **not**
- interactive, **not** HTML) service client generates the JWT and submits it
+ interactive, **not** HTML) client generates the JWT and submits it
  along with every request. In this scenario the client must have a shared
- (potentially revokable) secret with your service. Secret storage services
+ (potentially revokable) secret with your service. Secret-storage services
  might help here to hold the shared secret (e.g. Kubernetes Secrets, Vault,
  Amazon Secrets Manager)--or the secret might simply be pre-shared.
 
    Since `permitting` provides `create_timed_token`, a client written in
- Python could use permitting to generate its tokens.
+ Python could use `permitting` to generate its tokens.
 
 - A token generation service. Similar to BYOT, except this external service
- (not the client) shares the secret with yours, and the external service
+ (not the client) holds the shared secret, and the external service
  issues the token to the client instead of expecting the client to generate
  it.
