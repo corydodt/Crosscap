@@ -23,6 +23,8 @@ For point releases: Make sure there is a `series-0.x` branch in github, and bran
 
 ## Change Log
 
+### [0.4.2] - 2019.05.31
+
 ### Changed:
   - `crosscap.permitting.validate_token` now returns the entire payload, and has a default return parameter so you can choose what you'll get back.
 
@@ -60,6 +62,7 @@ For point releases: Make sure there is a `series-0.x` branch in github, and bran
   - Initial release
 
 
+[0.4.2]: https://github.com/corydodt/Crosscap/compare/release-0.4.0...release-0.4.2
 [0.4.0]: https://github.com/corydodt/Crosscap/compare/release-0.3.0...release-0.4.0
 [0.3.0]: https://github.com/corydodt/Crosscap/compare/release-0.2.2...release-0.3.0
 [0.2.2]: https://github.com/corydodt/Crosscap/compare/release-0.2.1...release-0.2.2
