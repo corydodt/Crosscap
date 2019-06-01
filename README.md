@@ -19,7 +19,12 @@ $ python setup.py sdist bdist_wheel
 $ twine upload dist/*
 ```
 
+For point releases: Make sure there is a `series-0.x` branch in github, and branch from that branch.
+
 ## Change Log
+
+### Changed:
+  - `crosscap.permitting.validate_token` now returns the entire payload, and has a default return parameter so you can choose what you'll get back.
 
 ### [0.4.0] - 2019.05.30
 
