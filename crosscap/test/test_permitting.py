@@ -120,23 +120,31 @@ def test_validate_token():
 
     # token without an expiration, so it should validate
     tok1 = b'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJteXVzZXIifQ.4agU_-BTje86l4JtbRdvLwTI9cHgKJ0Asg-hftuZUEM'
-    assert permitting.validate_token(tok1, SECRET) == sub
+    assert permitting.validate_token(tok1, SECRET)['sub'] == sub
 
     # token we created, with default expiration of 10 minutes
     tok2 = permitting.create_timed_token(sub, SECRET)
-    assert permitting.validate_token(tok2, SECRET) == sub
+    payload2 = permitting.validate_token(tok2, SECRET)
+    assert payload2['sub'] == sub
+    assert 'exp' in payload2
 
-    # expired token
+    # expired token (no default, raise an exception)
     tok3 = jwt.encode({'sub': sub, 'exp': datetime(year=1970, month=1, day=1)}, SECRET, algorithm='HS256')
-    assert permitting.validate_token(tok3, SECRET) is None
+    with raises(jwt.exceptions.ExpiredSignatureError):
+        permitting.validate_token(tok3, SECRET)
 
-    # malformed token
+    _my_default = object()
+
+    # malformed token, with a default
     tok2x = tok2[:-2]
-    assert permitting.validate_token(tok2x, SECRET) is None
+    assert permitting.validate_token(tok2x, SECRET, _my_default) is _my_default
 
     # correct token, incorrect secret
     secretx = SECRET[:-2]
-    assert permitting.validate_token(tok2, secretx) is None
+    assert permitting.validate_token(tok2, secretx, _my_default) is _my_default
+
+    # token is None
+    assert permitting.validate_token(None, SECRET, _my_default) is _my_default
 
 
 def test_extract_bearer_token():

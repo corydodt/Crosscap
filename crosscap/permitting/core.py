@@ -103,17 +103,25 @@ def _assert_stringy(**kwargs):
             raise TypeError("{label} {s!r} must be str/bytes and non-empty".format(label=label, s=s))
 
 
-def validate_token(token, secret, **kwargs):
+_NO_DEFAULT = object()
+
+def validate_token(token, secret, default=_NO_DEFAULT, **kwargs):
     """
-    Check a token signature and claims, and return the userid string (`sub` claim) or None
+    Check a token signature and claims, and return the userid string (`sub` claim) or the supplied default
+
+    If no default is passed in, this raises any exceptions that occur during token decode
     """
-    _assert_stringy(token=token, secret=secret)
+    _assert_stringy(secret=secret)
     kwargs.setdefault('algorithms', [JWT_ALGO[0]])
     try:
         payload = jwt.decode(token, secret, **kwargs)
-        return payload['sub']
-    except (jwt.exceptions.PyJWTError, KeyError):
-        return None
+        return payload
+
+    except jwt.exceptions.PyJWTError:
+        if default is _NO_DEFAULT:
+            raise
+
+        return default
 
 
 BEARER_RX = re.compile(r'bearer\s+(?P<token>\S+)', re.I)
