@@ -26,6 +26,8 @@ import jwt
 
 import wrapt
 
+from twisted.python.components import getAdapterFactory
+
 from crosscap.interface import ICurrentUser
 
 
@@ -64,16 +66,30 @@ def permits(*rules):
 
     def _do_authorization(authuser, user):
         return all(rule(authuser) for rule in rules)
+
+    def _find_handler(wrapped, instance, args, kwargs):
+        # We're looking for a request object, which will have an adapter to ICurrentUser.
+        # This recognizes TWO distinct ways a request handler can be provided:
+        # - it is the first argument to a function (klein/flask)
+        # - it is the `self' argument to a method (similar to Tornado RequestHandler)
+        is_handler = lambda o: getAdapterFactory(o.__class__, ICurrentUser, None) is not None
+
+        # this is likely the self argument to a bound instancemethod (tornado-style)
+        if is_handler(instance):
+            return instance
+
+        # this is either the first argument to a regular method or function (flask, klein with top-level functions),
+        # OR
+        # the self argument to an instancemethod called unbound (sometimes happens with decorators)
+        for arg in args[:2]:
+            if is_handler(arg):
+                return arg
+
+        raise TypeError("{!r} should be a function that gets passed the request handler in the first 1 or 2 arguments".format(wrapped))
         
     @wrapt.decorator
     def wrapper(wrapped, instance, args, kwargs):
-        # we're looking for a request object, which presumably has a `.write()` method.
-        if hasattr(instance, 'write') and callable(instance.write):
-            handler = instance
-        else:
-            # for methods that are passed the request handler in the first argument, do this
-            handler = (lambda handler, *a, **kw: handler)(*args, **kwargs)
-
+        handler = _find_handler(wrapped, instance, args, kwargs)
         authuser = ICurrentUser(handler)
 
         # is the user found? (authenticated?)
