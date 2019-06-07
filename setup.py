@@ -1,13 +1,13 @@
 from inspect import cleandoc
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 _version = {}
 exec(open('crosscap/_version.py').read(), _version)
 
 setup(
     name = 'Crosscap',
-    packages = ['crosscap',],
+    packages=['crosscap/' + x for x in find_packages('crosscap')],
     version = _version['__version__'],
     description = 'Suite of tools for enhancing the Klein web framework',
     author = 'Cory Dodt',
