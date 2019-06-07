@@ -23,6 +23,12 @@ For point releases: Make sure there is a `series-0.x` branch in github, and bran
 
 ## Change Log
 
+### [0.4.3] - 2019.06.07
+
+### Fixed:
+  - `permits()` decorator uses a more robust method of looking for the request handler in the args of the function it's decorating, now applies
+    to more use cases.
+
 ### [0.4.2] - 2019.05.31
 
 ### Changed:
@@ -62,6 +68,7 @@ For point releases: Make sure there is a `series-0.x` branch in github, and bran
   - Initial release
 
 
+[0.4.3]: https://github.com/corydodt/Crosscap/compare/release-0.4.2...release-0.4.3
 [0.4.2]: https://github.com/corydodt/Crosscap/compare/release-0.4.0...release-0.4.2
 [0.4.0]: https://github.com/corydodt/Crosscap/compare/release-0.3.0...release-0.4.0
 [0.3.0]: https://github.com/corydodt/Crosscap/compare/release-0.2.2...release-0.3.0
