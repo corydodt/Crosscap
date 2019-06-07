@@ -201,7 +201,7 @@ def test_extract_bearer_token():
     # anonymous user tries to access an admin resource
     [None, ["admin", "billing"], N],
     ])
-def test_permits(request, who, role_in, expect):
+def test_permits_fn(request, who, role_in, expect):
     """
     Do functions decorated with me do the required action (forbid or allow)
 
@@ -232,9 +232,9 @@ def test_permits(request, who, role_in, expect):
     assert handler(req) == expect
 
 
-def test_permits_instance(u_user):
+def test_permits_tornadolike(u_user):
     """
-    Does permits use the right object for the request handler when it's a instance method instead of a fn argument?
+    Does permits use the right object for the request handler when it's in the instance `self' argument, instead of a non-method argument
     """
     class MyPage(object):
         user = u_user
@@ -250,3 +250,15 @@ def test_permits_instance(u_user):
 
     pg = MyPage()
     assert pg.handler() == Y
+
+
+def test_permits_badfunction():
+    """
+    Do I raise an appropriate exception when the decorator is used on something inappropriate?
+    """
+    @permitting.permits()
+    def handler(): # pragma: nocover
+        return Y
+
+    with raises(TypeError):
+        handler()

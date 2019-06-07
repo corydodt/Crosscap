@@ -31,7 +31,7 @@ class AuthUser(object):
         """
         Unpack a JWT and confirm the user's identity, 
         """
-        uid = pm.validate_token(self.token, TOKEN_SECRET, {}).get('sub')
+        uid = pm.validate_token(self.token, TOKEN_SECRET, {}).get('sub') if self.token else None
         return USER_DATABASE.get(uid)
 
     @property

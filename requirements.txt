@@ -5,6 +5,7 @@ ftfy==4.4.3
 future
 klein
 mock
+pyjwt
 pytest-flakes
 pytest-cov
 pytest-twisted
@@ -13,3 +14,4 @@ tox
 twine
 twisted
 werkzeug
+wrapt
