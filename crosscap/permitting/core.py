@@ -109,7 +109,7 @@ def permits(*rules):
 
 def _assert_stringy(**kwargs):
     """
-    `_assert_string(arg1=some_value, arg2=other_value...)`
+    `_assert_stringy(arg1=some_value, arg2=other_value...)`
 
     Raise TypeError when a value in the kwargs is not stringy or is empty, displaying the keyword name in the error
     
