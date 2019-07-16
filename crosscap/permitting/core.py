@@ -16,7 +16,7 @@ A framework for authorizing HTTP traffic in a Klein-based web service
     - implement .token by getting the JWT string from your request object. extract_bearer_token may be helpful
     - implement .authenticate to check the JWT and return a user instance. validate_token may be helpful
     - implement .authenticated to receive the authenticated user and do something with it
-    - implement .forbidden to receive the authenticated user and do something with it
+    - implement .forbidden to cause something to happen when a client tries to make an unauthorized request
     - implement .roles to produce a sequence of the roles possessed by a user.
 """
 from datetime import datetime, timedelta
