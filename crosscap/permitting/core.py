@@ -109,7 +109,9 @@ def permits(*rules):
 
 def _assert_stringy(**kwargs):
     """
-    Raise TypeError when s is not stringy or is empty, displaying `label' in the error
+    `_assert_string(arg1=some_value, arg2=other_value...)`
+
+    Raise TypeError when a value in the kwargs is not stringy or is empty, displaying the keyword name in the error
     
     A convenience check. A number of APIs in this file must return None on bad input,
     but we can still do type checks to catch programming errors.
