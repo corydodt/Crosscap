@@ -12,6 +12,7 @@ $ tox
 
 - Update setup.py with a new version
 - Update the Change Log below
+- **Commit your changes to the above files.**
 - Add and push a tag for the new release
 
 ```
@@ -22,6 +23,11 @@ $ twine upload dist/*
 For point releases: Make sure there is a `series-0.x` branch in github, and branch from that branch.
 
 ## Change Log
+
+### [0.4.6] - 2019.07.23
+
+### Fixed:
+    - We don't need to specify pytest stuff in our hard dependencies; move them into [dev] dependencies
 
 ### [0.4.4] - 2019.06.07
 
@@ -69,6 +75,7 @@ For point releases: Make sure there is a `series-0.x` branch in github, and bran
   - Initial release
 
 
+[0.4.6]: https://github.com/corydodt/Crosscap/compare/release-0.4.4...release-0.4.6
 [0.4.4]: https://github.com/corydodt/Crosscap/compare/release-0.4.2...release-0.4.4
 [0.4.2]: https://github.com/corydodt/Crosscap/compare/release-0.4.0...release-0.4.2
 [0.4.0]: https://github.com/corydodt/Crosscap/compare/release-0.3.0...release-0.4.0
