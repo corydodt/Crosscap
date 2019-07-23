@@ -10,7 +10,7 @@ $ tox
 
 ##  Build/upload
 
-- Update crosscap/_version.py
+- Update setup.py with a new version
 - Update the Change Log below
 - Add and push a tag for the new release
 

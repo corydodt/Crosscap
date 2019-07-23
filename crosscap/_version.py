@@ -1,2 +1,4 @@
+import pkg_resources
 
-__version__ = "0.4.4"
+
+__version__ = pkg_resources.get_distribution('pip').version
