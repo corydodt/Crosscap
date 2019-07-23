@@ -3,7 +3,7 @@ from inspect import cleandoc
 from setuptools import setup, find_packages
 
 
-__version__ = '0.4.8'
+__version__ = '0.4.9'
 
 
 cfg = dict(
@@ -36,7 +36,8 @@ cfg = dict(
     },
     install_requires=cleandoc('''
         click>=6.7
-        ftfy>=4
+        ftfy==4.4.3;python_version<'3'
+        ftfy;python_version>='3'
         future>=0.16.0
         pyjwt>=1.7.1
         pyyaml>=3.12,<4.0
