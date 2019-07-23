@@ -3,7 +3,7 @@ from inspect import cleandoc
 from setuptools import setup, find_packages
 
 
-__version__ = '0.4.7'
+__version__ = '0.4.8'
 
 
 cfg = dict(
