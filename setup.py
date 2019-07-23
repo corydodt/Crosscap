@@ -36,7 +36,7 @@ cfg = dict(
     },
     install_requires=cleandoc('''
         click>=6.7
-        ftfy==4.4.3
+        ftfy>=4
         future>=0.16.0
         pyjwt>=1.7.1
         pyyaml>=3.12,<4.0
