@@ -27,7 +27,7 @@ For point releases: Make sure there is a `series-0.x` branch in github, and bran
 ### [0.4.8] - 2019.07.23
 
 ### Fixed:
-    - We don't need to specify pytest stuff in our hard dependencies; move them into [dev] dependencies
+  - We don't need to specify pytest stuff in our hard dependencies; move them into [dev] dependencies
 
 ### [0.4.4] - 2019.06.07
 
