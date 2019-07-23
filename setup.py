@@ -8,7 +8,7 @@ __version__ = '0.4.6'
 
 cfg = dict(
     name = 'Crosscap',
-    packages=['crosscap/' + x for x in find_packages('crosscap')],
+    packages=['crosscap'] + ['crosscap/' + x for x in find_packages('crosscap')],
     version = __version__,
     description = 'Suite of tools for enhancing the Klein web framework',
     author = 'Cory Dodt',
