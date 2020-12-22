@@ -24,6 +24,11 @@ For point releases: Make sure there is a `series-0.x` branch in github, and bran
 
 ## Change Log
 
+### [0.5.0] - 2020.12.22
+
+### Fixed:
+  - Pyyaml 5.x now supported
+
 ### [0.4.9] - 2019.07.23
 
 ### Fixed:
@@ -75,6 +80,7 @@ For point releases: Make sure there is a `series-0.x` branch in github, and bran
   - Initial release
 
 
+[0.5.0]: https://github.com/corydodt/Crosscap/compare/release-0.4.9...release-0.5.0
 [0.4.9]: https://github.com/corydodt/Crosscap/compare/release-0.4.4...release-0.4.9
 [0.4.4]: https://github.com/corydodt/Crosscap/compare/release-0.4.2...release-0.4.4
 [0.4.2]: https://github.com/corydodt/Crosscap/compare/release-0.4.0...release-0.4.2

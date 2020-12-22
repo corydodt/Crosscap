@@ -3,7 +3,7 @@ from inspect import cleandoc
 from setuptools import setup, find_packages
 
 
-__version__ = '0.4.9'
+__version__ = '0.5.0'
 
 
 cfg = dict(
@@ -39,8 +39,9 @@ cfg = dict(
         ftfy==4.4.3;python_version<'3'
         ftfy;python_version>='3'
         future>=0.16.0
+        klein
         pyjwt>=1.7.1
-        pyyaml>=3.12,<4.0
+        pyyaml>=3.12
         twisted>=17.1.0
         werkzeug>=0.13
         wrapt>=1.11.1
